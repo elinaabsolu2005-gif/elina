@@ -39,16 +39,30 @@ class GameView:
             text_surf = self.font.render(
                 label, True, COLOR_ACCENT if i == 0 else COLOR_TEXT)
             self.screen.blit(text_surf, text_surf.get_rect(center=rect.center))
-
-    def _draw_racing(self, model: GameModel) -> None:
-
-        for row_idx, row in enumerate(model.circuit.grid):
-            for col_idx, tile in enumerate(row):
-                sprite = tile.get_sprite(TILE_SIZE)
-                self.screen.blit(
-                    sprite, (col_idx * TILE_SIZE, row_idx * TILE_SIZE))
-
-        if model.circuit is None:
-            return
-        surf, rect = model.car.get_rotated_sprite()
-        self.screen.blit(surf, rect)
+        #MODIFIE LE 24/11/2026 POUR AVOIR LES 2 VOITURES
+       def _draw_racing(self, model: GameModel) -> None:
+    
+            #AFFICHE LE CIRCUIT
+            if model.circuit is None:
+                return
+    
+            for row_idx, row in enumerate(model.circuit.grid):
+                for col_idx, tile in enumerate(row):
+                    sprite = tile.get_sprite(TILE_SIZE)
+                    self.screen.blit(
+                        sprite,
+                        (col_idx * TILE_SIZE, row_idx * TILE_SIZE)
+                    )
+    
+           #AFFICHE CAR1
+            if model.car1 is not None:
+                sprite, rect = model.car1.get_rotated_sprite()
+                self.screen.blit(sprite, rect)
+    
+            #AFFICHE CAR2
+            if model.car2 is not None:
+                sprite, rect = model.car2.get_rotated_sprite()
+                self.screen.blit(sprite, rect)
+    
+            surf, rect = model.car.get_rotated_sprite()
+            self.screen.blit(surf, rect)
