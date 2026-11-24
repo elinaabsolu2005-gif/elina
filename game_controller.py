@@ -8,7 +8,6 @@ from model.game_model import GameModel
 from view.game_view import GameView
 from controller.input_handler import InputHandler
 
-
 class GameController:
 
     def __init__(self):
@@ -40,6 +39,10 @@ class GameController:
 
         if state == GameState.MENU:
             self.handle_menu_key(key)
+        #Dans le cas ou le jouer est dans le jeu mais veut retourner au menuu principal  
+        elif state == GameState.RACING:
+            if key == pygame.K_ESCAPE:
+                self.model.state = GameState.MENU
 
     def handle_menu_key(self, key: int) -> None:
         if key == pygame.K_RETURN:
@@ -51,15 +54,32 @@ class GameController:
     def update(self) -> None:
         if self.model.state != GameState.RACING:
             return
+        # pour utiliseur le dictionnaire de chaque joueur 
+        inputs = self.input_handler.get_inputs()
+        p1_input = inputs[0]
+        p2_input = inputs[1]
 
-        p1_input = self.input_handler.get_inputs()
-        car = self.model.car
-        self.apply_input(car, p1_input)
+        car1 = self.model.car1
+        car2 = self.model.car2
+        self.apply_input(car1, p1_input)
+        self.apply_input(car2, p2_input)
         self.model.update()
 
     def apply_input(self, car, player_input) -> None:
         if player_input['accelerate']:
             car.accelerate()
+
+        if player_input['brake']:
+            car.brake()
+
+        if player_input['turn_left']:
+            car.turn_left()
+
+        if player_input['turn_right']:
+            car.turn_right()
+
+        if player_input['use_item']:
+            car.use_item()
 
     def render(self) -> None:
         self.view.draw(self.model)
