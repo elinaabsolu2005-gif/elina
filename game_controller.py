@@ -39,7 +39,7 @@ class GameController:
 
         if state == GameState.MENU:
             self.handle_menu_key(key)
-        #Dans le cas ou le jouer est dans le jeu mais veut retourner au menuu principal  
+        #Dans le cas ou le jouer est dans le jeu mais veut retourner au menu principal  
         elif state == GameState.RACING:
             if key == pygame.K_ESCAPE:
                 self.model.state = GameState.MENU
