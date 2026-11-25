@@ -66,3 +66,46 @@ class GameView:
     
             surf, rect = model.car.get_rotated_sprite()
             self.screen.blit(surf, rect)
+
+    def _draw_selection(self, model):
+        """25/11 ajouté par Luna"""
+        cx = WINDOW_WIDTH //2
+
+        title = self.font.render(
+            "Choisis ton circuit", True, COLOR_ACCENT
+        )
+        self.screen.blit(
+            title, title.get_rect(center=(cx, 150))
+        )
+
+        for i in range(2):
+            x = cx - 170 + i * 200
+            rect = pygame.Rect(x, 280, 140, 100)
+
+            pygame.draw.rect(self.screen, COLOR_PANEL, rect)
+
+            if model.circuits_choisi == i:
+                pygame.draw.rect(
+                    self.screen, COLOR_ACCENT, rect, 4
+                )
+            else:
+                pygame.draw.rect(
+                    self.screen, COLOR_PANEL_BORDER, rect, 2
+                )
+
+            texte = self.font.render(
+                f"Circuit {i+1}", True, COLOR_TEXT
+            )
+            self.screen.blit(
+                texte, texte.get_rect(center=rect.center)
+            )
+
+        aide = self.font.render(
+            "<- / -> pour choisir, Entree pour jouer",
+            True, COLOR_TEXT
+        )
+        self.screen.blit(
+            aide, aide.get_rect(center=(cx,450))
+        )
+
+
