@@ -17,8 +17,26 @@ class Car:
     def accelerate(self) -> None:
         self.speed += CAR_ACCELERATION
 
+    def turn_right(self) -> None:
+        """25/11 modifier par Luna :augmenter l'angle"""
+        if self.angle > -360:
+            self.angle -= 2
+        else:
+            self.angle = 0
+
+    def turn_left(self) -> None:
+            """25/11 modifier par Luna :augmenter l'angle"""
+            if self.angle < 360:
+                self.angle += 2
+            else:
+                self.angle = 0
+
     def update_position(self) -> None:
-        self.y += self.speed
+        """25/11 modifier par Luna :augmenter l'angle"""
+        
+        self.y += self.speed * math.cos(math.radians(self.angle))
+        self.x -= self.speed * math.sin(math.radians(self.angle))
+
 
     def build_sprite(self) -> pygame.Surface:
         surf = pygame.Surface((CAR_WIDTH, CAR_HEIGHT), pygame.SRCALPHA)
