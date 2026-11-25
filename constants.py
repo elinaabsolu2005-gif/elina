@@ -13,6 +13,8 @@ CAR_HEIGHT = 50
 
 class GameState:
     MENU = "menu"
+    #25/11 ajoute choix circuit par Luna
+    CHOIX_CIRCUIT = "choix_circuit"
     RACING = "racing"
 
 
