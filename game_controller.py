@@ -73,6 +73,7 @@ class GameController:
         self.apply_input(car2, p2_input)
         self.model.update()
     #ajouté le 24/11 par Savvianna
+    #par Luna:delete use item
     def apply_input(self, car, player_input) -> None:
         if player_input['accelerate']:
             car.accelerate()
@@ -86,8 +87,6 @@ class GameController:
         if player_input['turn_right']:
             car.turn_right()
 
-        if player_input['use_item']:
-            car.use_item()
 
     def render(self) -> None:
         self.view.draw(self.model)
