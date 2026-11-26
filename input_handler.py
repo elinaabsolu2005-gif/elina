@@ -1,6 +1,6 @@
 import pygame
 
-
+"""Ajout 24/11 par Savvianna: Dictionnaires de joueur 1 et joueur 2 qu'ils definissent les touches utilisées par chaque joueur"""
 PLAYER1_MAPPING = {
 
     # Joueur 1
@@ -21,10 +21,10 @@ PLAYER2_MAPPING = {    # Joueur 2
     pygame.K_RIGHT: "turn_right",
     pygame.K_RETURN: "use_item"
 }
-
+"""Ajout 24/11 par Savvianna: Liste qu'elle contient les commandes des 2 joueurs"""
 PLAYERS_MAPPING = [PLAYER1_MAPPING, PLAYER2_MAPPING]
 
-
+"""Ajout 24/11 par Savvianna"""
 class InputHandler:
     """C'est une classe pour gérer les commandes que les joueurs utilisent"""
     
