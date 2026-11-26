@@ -1,7 +1,8 @@
 import pygame
 import math
+#Modifié par Savvianna le 26/11: Import BOOST_ACCELERATION
 from constants import (
-    CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE
+CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, BOOST_ACCELERATION
 )
 
 
@@ -13,6 +14,20 @@ class Car:
         self.speed: float = 0.0
         self.angle: float = 0.0
         self.sprite = self.build_sprite()
+        #Luna:ajouter
+        self.tours = 0
+
+    #Modifié par Savvianna le 26/11: Quand la voiture passe par un boost elle accélère.
+    def boost(self) -> None:
+        self.speed += BOOST_ACCELERATION
+
+    def brake(self) -> None:
+        """ajoute par Luna 26/11"""
+        self.speed = 0
+        if self.speed > 200:
+            self.marche_arriere()
+        elif self.speed < 0:
+            self.accelerate()
 
     def accelerate(self) -> None:
         self.speed += CAR_ACCELERATION
