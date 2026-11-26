@@ -17,6 +17,8 @@ class GameController:
         self.view = GameView(self.screen)
         self.input_handler = InputHandler()
         self.running = True
+        self.selected_circuit = 0
+        self.nb_circuits = 2
 
     def run(self) -> None:
         while self.running:
@@ -45,7 +47,11 @@ class GameController:
                 self.model.state = GameState.MENU
 
     def handle_menu_key(self, key: int) -> None:
-        if key == pygame.K_RETURN:
+        if key == pygame.K_DOWN:
+            self.selected_circuit = min(self.selected_circuit+1, self.nb_circuits - 1)
+        elif key == pygame.K_UP:
+            self.selected_circuit = max(self.selected_circuit+1, 0)
+        elif key == pygame.K_RETURN:
             self.model.load_circuit()
             self.model.state = GameState.RACING
         elif key == pygame.K_ESCAPE:
