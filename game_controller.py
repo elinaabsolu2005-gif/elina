@@ -17,6 +17,7 @@ class GameController:
         self.view = GameView(self.screen)
         self.input_handler = InputHandler()
         self.running = True
+        #ajouté le 26/11 par Savvianna:
         self.selected_circuit = 0
         self.nb_circuits = 2
 
@@ -41,12 +42,13 @@ class GameController:
 
         if state == GameState.MENU:
             self.handle_menu_key(key)
-        #Dans le cas ou le jouer est dans le jeu mais veut retourner au menu principal  
+        #ajout du 24/11 par Savvianna: Dans le cas ou le jouer est dans le jeu mais veut retourner au menu principal  
         elif state == GameState.RACING:
             if key == pygame.K_ESCAPE:
                 self.model.state = GameState.MENU
 
     def handle_menu_key(self, key: int) -> None:
+        """ajouté le 26/11 par Savvianna: pour pouvoir choisir le circuit précédent ou suivant avec le flèche du haut et bas respectivement"""
         if key == pygame.K_DOWN:
             self.selected_circuit = min(self.selected_circuit+1, self.nb_circuits - 1)
         elif key == pygame.K_UP:
@@ -60,17 +62,17 @@ class GameController:
     def update(self) -> None:
         if self.model.state != GameState.RACING:
             return
-        # pour utiliseur le dictionnaire de chaque joueur 
+        # Ajout du 24/11 par Savvianna: pour utiliseur le dictionnaire de chaque joueur 
         inputs = self.input_handler.get_inputs()
         p1_input = inputs[0]
         p2_input = inputs[1]
-
+        #ajouté le 24/11 par Savvianna
         car1 = self.model.car1
         car2 = self.model.car2
         self.apply_input(car1, p1_input)
         self.apply_input(car2, p2_input)
         self.model.update()
-
+    #ajouté le 24/11 par Savvianna
     def apply_input(self, car, player_input) -> None:
         if player_input['accelerate']:
             car.accelerate()
