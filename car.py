@@ -14,6 +14,10 @@ class Car:
         self.speed: float = 0.0
         self.angle: float = 0.0
         self.sprite = self.build_sprite()
+        #modification par Elina le 26/11: Initialisation du nombre des tours de la derniere case
+        #modification par Elina le 26/11: fixation de nombre des checkpoints qu'il faut valider
+        self.derniere_case=None
+        self.checkpoints_valides=set()
         #Luna:ajouter
         self.tours = 0
 
