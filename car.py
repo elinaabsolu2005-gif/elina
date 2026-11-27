@@ -69,3 +69,18 @@ class Car:
         rotated = pygame.transform.rotate(self.sprite, -self.angle)
         rect = rotated.get_rect(center=(int(self.x), int(self.y)))
         return rotated, rect
+
+    def _rester_dans_ecran(self):
+        #Modifié par Elina:27/11 Faut rester dans les limites d'ecran, quand on arrive aux bords, il s'arrete
+
+        marge = CAR_WIDTH / 2
+
+        x = max(marge, min(WINDOW_WIDTH - marge, self.x))
+        y = max(marge, min(WINDOW_HEIGHT - marge, self.y))
+
+        
+        if x != self.x or y != self.y:
+            self.speed = 0.0
+
+        self.x = x
+        self.y = y
