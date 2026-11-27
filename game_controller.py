@@ -46,6 +46,13 @@ class GameController:
         elif state == GameState.RACING:
             if key == pygame.K_ESCAPE:
                 self.model.state = GameState.MENU
+        #modifié par Elina le 26/11: quand le joueur gagne on retourne au menu pricnipal
+        elif state == GameState.RACING:
+            #Après victoire, Entrée
+            if(self.model.vainqueur is not None
+               and key == pygame.K_RETURN
+            ):
+                self.model.state = GameState.CHOIX_CIRCUIT
 
     def handle_menu_key(self, key: int) -> None:
         """ajouté le 26/11 par Savvianna: pour pouvoir choisir le circuit précédent ou suivant avec le flèche du haut et bas respectivement"""
@@ -64,6 +71,9 @@ class GameController:
             return
         # Ajout du 24/11 par Savvianna: pour utiliseur le dictionnaire de chaque joueur 
         inputs = self.input_handler.get_inputs()
+        #modifié par Elina le 26/11: quand il y a pas de vainqueur le jeu continue
+        if self.model.vainqueur is not None:
+            return
         p1_input = inputs[0]
         p2_input = inputs[1]
         #ajouté le 24/11 par Savvianna
@@ -86,7 +96,6 @@ class GameController:
 
         if player_input['turn_right']:
             car.turn_right()
-
 
     def render(self) -> None:
         self.view.draw(self.model)
