@@ -61,6 +61,8 @@ class Car:
         surf = pygame.Surface((CAR_WIDTH, CAR_HEIGHT), pygame.SRCALPHA)
         pygame.draw.rect(surf, (255, 0, 0), (0, 0, CAR_WIDTH,
                          CAR_HEIGHT), border_radius=5)
+        #modification par Elina le 26/11: pare-brise gris
+        pygame.draw.rect(surf,(220 ,240, 255),(5, 30, CAR_WIDTH-10, 10))
         return surf
 
     def get_rotated_sprite(self) -> tuple[pygame.Surface, pygame.Rect]:
