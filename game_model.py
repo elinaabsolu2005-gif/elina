@@ -69,6 +69,39 @@ class GameModel:
             Circuit(grille1),
             Circuit(grille2)
         ]
+        #Modifié par Elina le 28/11
+        definitions = [
+            [(4, 3), (6, 5)],
+            [(3, 3), (5, 5)]
+        ]
+
+        self.circuits = []
+
+        for checkpoints in definitions:
+
+            grille = [
+                [RoadTile(col, row) for col in range(GRID_COLS)]
+                for row in range(GRID_ROWS)
+            ]
+
+            for numero, (col, row) in enumerate(checkpoints):
+
+                grille[row][col] = RoadTile(
+                    col, row,
+                    type="checkpoint",
+                    checkpoint_id=numero
+                )
+
+            # Arrivée sur 2 cases : une par joueur
+            for col in (7, 8):
+
+                grille[1][col] = RoadTile(
+                    col, 1,
+                    type="finish"
+                )
+
+            self.circuits.append(Circuit(grille, 3))
+
 
     def choisir_circuit(self,num):
         self.circuits_choisi=num
