@@ -114,6 +114,8 @@ class GameModel:
         self.circuit.get_tile(7, 1).block = '1'
         self.circuit.get_tile(8, 1).block = '2'
         self.spawn_car()
+        #modifié par Elina le 28/11
+        self.vainqueur = None
         self.state = GameState.RACING
 
     def spawn_car(self) -> None:
