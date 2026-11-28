@@ -13,7 +13,7 @@ from constants import (
     GameState
 )
 
-from model.game_model import GameModel
+from game_model import GameModel
 
 
 class GameView:
@@ -130,7 +130,7 @@ class GameView:
                 rect
             )
 
-            if model.circuit_choisi == i:
+            if model.circuits_choisi == i:
 
                 pygame.draw.rect(
                     self.screen,

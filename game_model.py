@@ -1,7 +1,8 @@
 from constants import GameState, GRID_ROWS, GRID_COLS
-from model.car import Car
-from model.circuit import Circuit
-from model.road_tile import RoadTile
+from car import Car
+from circuit import Circuit
+from road_tile import RoadTile
+import math
 
 circuit_1 =[
     # 25/11 ajouté par Luna
@@ -75,12 +76,12 @@ class GameModel:
             [(3, 3), (5, 5)]
         ]
 
-        self.circuits = []
+        
 
         for checkpoints in definitions:
 
             grille = [
-                [RoadTile(col, row) for col in range(GRID_COLS)]
+                [RoadTile(col, row,terrain) for col in range(GRID_COLS)]
                 for row in range(GRID_ROWS)
             ]
 
@@ -89,7 +90,9 @@ class GameModel:
                 grille[row][col] = RoadTile(
                     col, row,
                     type="checkpoint",
-                    checkpoint_id=numero
+                    checkpoint_id=numero,
+                    terrain=0
+                    
                 )
 
             # Arrivée sur 2 cases : une par joueur
@@ -97,7 +100,8 @@ class GameModel:
 
                 grille[1][col] = RoadTile(
                     col, 1,
-                    type="finish"
+                    type="finish",
+                    terrain=0
                 )
 
             self.circuits.append(Circuit(grille, 3))

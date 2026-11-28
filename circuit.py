@@ -1,13 +1,34 @@
-from model.road_tile import RoadTile
+from road_tile import RoadTile
 from constants import TILE_SIZE
 
 
 class Circuit:
 
-    def __init__(self,  grid: list[list[RoadTile]]):
+    def __init__(self,  grid: list[list[RoadTile]],nombre_tours=3):
         self.grid = grid
         self.rows = len(grid)
         self.cols = len(grid[0]) if grid else 0
+        self.grid = grid
+        self.nombre_tours = nombre_tours
+
+        
+
+        self.checkpoints = []
+        self.ligne_arrivee = None
+
+        for row in self.grid:
+
+            for tile in row:
+
+                if tile.type == "checkpoint":
+
+                    self.checkpoints.append(
+                        tile.checkpoint_id
+                    )
+
+                elif tile.type == "finish":
+
+                    self.ligne_arrivee = tile
 
     def get_tile(self, col: int, row: int) -> RoadTile | None:
         if 0 <= row < self.rows and 0 <= col < self.cols:
