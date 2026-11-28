@@ -4,9 +4,9 @@ from constants import (
     WINDOW_WIDTH, WINDOW_HEIGHT, FPS,
     GameState
 )
-from model.game_model import GameModel
-from view.game_view import GameView
-from controller.input_handler import InputHandler
+from game_model import GameModel
+from game_view import GameView
+from input_handler import InputHandler
 
 class GameController:
 

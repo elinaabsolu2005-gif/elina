@@ -5,12 +5,14 @@ class RoadTile:
     """25/11 commit par Luna"""
 
     #Modifié le 26/11 par Savvianna: ajout de la paramètre bloc
-    def __init__(self, col: int, row: int, terrain: int, block = None):
+    def __init__(self, col: int, row: int, terrain: int, block = None,type="route",checkpoint_id=None):
         self.col = col
         self.row = row
         self.sprite: pygame.Surface | None = None
         self.terrain = terrain
         self.block = block
+        self.type= type
+        self.checkpoint_id = checkpoint_id
 
     def get_sprite(self, tile_size: int = TILE_SIZE) -> pygame.Surface:
         if self.sprite and self.sprite.get_width() == tile_size:
@@ -44,6 +46,15 @@ class RoadTile:
             police = pygame.font.SysFont(None, 36)
             chiffre = police.render(self.block, True, (255, 255, 255))
             surface.blit(chiffre,(24, 20))
+        # Couleur selon le type de case
+        if self.type == "checkpoint":
+            surface.fill((40, 160, 80))
+
+        elif self.type == "finish":
+            surface.fill((220, 190, 30))
+
+        else:
+            surface.fill((80, 80, 90))
 
 
         surface.fill(couleur)
