@@ -150,8 +150,11 @@ class GameModel:
     def update(self) -> None:
         if self.state != GameState.RACING or self.circuit is None:
             return
-        self.car1.update_position()
-        self.car2.update_position()
+
+        #modifié par Savvianna le 28/11
+        #self.car1.update_position()
+        #self.car2.update_position()
+        
         #Modifié le 26/11 par Savvianna: regarder si le cas est un boost, la voiture accélère
         tile = self.circuit.get_tile_at_pixel(self.car1.x, self.car1.y)
         if tile is not None and tile.block == 'boost':
@@ -172,6 +175,9 @@ class GameModel:
             ancienne_y = car.y
 
             car.update_position()
+
+            #modifié par Savvianna le 28/11: Pour que le voiture reste à l'écran
+            car._rester_dans_ecran()
 
             # Vérifier les cases traversées
             distance = math.hypot(
