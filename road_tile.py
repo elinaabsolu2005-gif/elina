@@ -48,6 +48,13 @@ class RoadTile:
             police = pygame.font.SysFont(None, 36)
             chiffre = police.render(self.block, True, (255, 255, 255))
             surface.blit(chiffre,(24, 20))
+        #modifie le 28/11 par Elina
+        if self.type == "checkpoint":
+            police = pygame.font.SysFont(None, 36)
+            lettre = police.render('C', True, (255, 255, 255))
+            surface.blit(lettre, (24, 20))
+
+
 
         self.sprite = surface
         return self.sprite
