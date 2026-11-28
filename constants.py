@@ -9,7 +9,8 @@ GRID_ROWS = 12
 CAR_ACCELERATION = 0.05
 CAR_WIDTH = 30
 CAR_HEIGHT = 50
-
+#modifié par Elina le 28/11
+BOOST_ACCELERATION=0.1
 
 class GameState:
     MENU = "menu"
