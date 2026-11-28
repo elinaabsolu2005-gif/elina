@@ -34,6 +34,10 @@ class RoadTile:
             self.sprite = None
             couleur = (20, 20, 30) #vide
 
+        surface.fill(couleur)
+        pygame.draw.rect(surface, (60, 60, 70), surface.get_rect(), 2)
+
+        #Modifié le 28/11 par Savvianna: deplacement des 2 if car 'B' et '1' et '2' s'affichaient pas avant
         #Modifié le 26/11 par Savvianna: ajout du 'B' en blanc si la cas est un Boost
         if self.block =='boost':
             police = pygame.font.SysFont(None, 36)
@@ -44,10 +48,6 @@ class RoadTile:
             police = pygame.font.SysFont(None, 36)
             chiffre = police.render(self.block, True, (255, 255, 255))
             surface.blit(chiffre,(24, 20))
-
-
-        surface.fill(couleur)
-        pygame.draw.rect(surface, (60, 60, 70), surface.get_rect(), 2)
 
         self.sprite = surface
         return self.sprite
