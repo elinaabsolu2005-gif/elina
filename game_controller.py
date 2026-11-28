@@ -36,35 +36,48 @@ class GameController:
             elif event.type == pygame.KEYDOWN:
                 self.handle_keydown(event.key)
 
-    def handle_keydown(self, key: int) -> None:
+    def handle_keydown(self, key):
 
         state = self.model.state
 
-        if state == GameState.MENU:
-            self.handle_menu_key(key)
-        #ajout du 24/11 par Savvianna: Dans le cas ou le jouer est dans le jeu mais veut retourner au menu principal  
-        elif state == GameState.RACING:
-            if key == pygame.K_ESCAPE:
+        if key == pygame.K_ESCAPE:
+
+            if state == GameState.MENU:
+                self.quit()
+
+            elif state == GameState.RACING:
+                self.model.state = GameState.CHOIX_CIRCUIT
+
+            elif state == GameState.CHOIX_CIRCUIT:
                 self.model.state = GameState.MENU
-        #modifié par Elina le 26/11: quand le joueur gagne on retourne au menu pricnipal
+
+            return
+
+        if state == GameState.MENU:
+
+            if key == pygame.K_RETURN:
+                self.model.state = GameState.CHOIX_CIRCUIT
+
+        elif state == GameState.CHOIX_CIRCUIT:
+
+            if key == pygame.K_LEFT:
+                self.model.choisir_circuit(0)
+
+            elif key == pygame.K_RIGHT:
+                self.model.choisir_circuit(1)
+
+            elif key == pygame.K_RETURN:
+                self.model.load_circuit()
+
         elif state == GameState.RACING:
-            #Après victoire, Entrée
-            if(self.model.vainqueur is not None
-               and key == pygame.K_RETURN
+
+            # Après  victoire, Entrée 
+            if (
+                self.model.vainqueur is not None
+                and key == pygame.K_RETURN
             ):
                 self.model.state = GameState.CHOIX_CIRCUIT
 
-    def handle_menu_key(self, key: int) -> None:
-        """ajouté le 26/11 par Savvianna: pour pouvoir choisir le circuit précédent ou suivant avec le flèche du haut et bas respectivement"""
-        if key == pygame.K_DOWN:
-            self.selected_circuit = min(self.selected_circuit+1, self.nb_circuits - 1)
-        elif key == pygame.K_UP:
-            self.selected_circuit = max(self.selected_circuit+1, 0)
-        elif key == pygame.K_RETURN:
-            self.model.load_circuit()
-            self.model.state = GameState.RACING
-        elif key == pygame.K_ESCAPE:
-            self.quit()
 
     def update(self) -> None:
         if self.model.state != GameState.RACING:
