@@ -87,6 +87,30 @@ class GameModel:
         #Luna:
         self.car1 = Car(7, 1)
         self.car2 = Car(8, 1)
+    #modifie par Elina le 28/11
+    def verifier_bloc(self, car, tile):
+
+        if tile is None:
+            return
+
+        if tile.type == "checkpoint":
+
+            car.checkpoints_valides.add(tile.checkpoint_id)
+
+        elif tile.type == "finish":
+
+            tous_valides = set(
+                self.circuit.checkpoints
+            ).issubset(car.checkpoints_valides)
+
+            if tous_valides:
+
+                car.tours += 1
+
+                car.checkpoints_valides.clear()
+
+                if car.tours >= self.circuit.nombre_tours:
+                    self.vainqueur = car
 
     def update(self) -> None:
         if self.state != GameState.RACING or self.circuit is None:
