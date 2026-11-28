@@ -1,8 +1,9 @@
 import pygame
 import math
 #Modifié par Savvianna le 26/11: Import BOOST_ACCELERATION
+#Modifié par Savvianna le 28/11: Import WINDOW_HEIGHT, WINDOW_WIDTH
 from constants import (
-CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, BOOST_ACCELERATION
+CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, BOOST_ACCELERATION, WINDOW_HEIGHT, WINDOW_WIDTH
 )
 
 
@@ -72,13 +73,13 @@ class Car:
 
     def _rester_dans_ecran(self):
         #Modifié par Elina:27/11 Faut rester dans les limites d'ecran, quand on arrive aux bords, il s'arrete
+        #Modifié par Savvianna le 28/11: Ajout du le cas y
+        marge_x = CAR_WIDTH / 2
+        marge_y = CAR_HEIGHT / 2
 
-        marge = CAR_WIDTH / 2
+        x = max(marge_x, min(WINDOW_WIDTH - marge_x, self.x))
+        y = max(marge_y, min(WINDOW_HEIGHT - marge_y, self.y))
 
-        x = max(marge, min(WINDOW_WIDTH - marge, self.x))
-        y = max(marge, min(WINDOW_HEIGHT - marge, self.y))
-
-        
         if x != self.x or y != self.y:
             self.speed = 0.0
 
