@@ -157,4 +157,45 @@ class GameModel:
         tile = self.circuit.get_tile_at_pixel(self.car2.x, self.car2.y)
         if tile is not None and tile.block == 'boost':
             self.car2.boost()
+        #modifié par Elina le 28/11
+        for car in [self.car1, self.car2]:
+
+            if car is None:
+                continue
+
+            if self.vainqueur is not None:
+                return
+
+            ancienne_x = car.x
+            ancienne_y = car.y
+
+            car.update_position()
+
+            # Vérifier les cases traversées
+            distance = math.hypot(
+                car.x - ancienne_x,
+                car.y - ancienne_y
+            )
+
+            nombre_etapes = max(1, int(distance / 5))
+
+            for i in range(1, nombre_etapes + 1):
+
+                ratio = i / nombre_etapes
+
+                x = ancienne_x + (car.x - ancienne_x) * ratio
+                y = ancienne_y + (car.y - ancienne_y) * ratio
+
+                tile = self.circuit.get_tile_at_pixel(x, y)
+
+                if tile is None:
+                    continue
+
+                position_case = (tile.col, tile.row)
+
+                if position_case != car.derniere_case:
+
+                    car.derniere_case = position_case
+
+                    self.verifier_bloc(car, tile)
 
